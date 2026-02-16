@@ -108,7 +108,7 @@ const Hero = () => {
   };
 
   const title1 = "Tax & Accounting";
-  const title2 = "You Can Trust";
+  const title2 = "Certified Public Accountant";
 
   return (
     <section
