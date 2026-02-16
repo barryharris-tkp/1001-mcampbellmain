@@ -175,15 +175,15 @@ const Hero = () => {
             </span>
           </motion.h1>
 
-          {/* Animated title - line 2 with accent */}
-          <motion.h1
-            className="font-playfair text-4xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-8 leading-tight"
+          {/* Animated subtitle - line 2 with accent */}
+          <motion.p
+            className="font-montserrat text-lg md:text-2xl lg:text-3xl font-medium tracking-wide mb-6 md:mb-8 leading-normal"
             variants={titleVariants}
           >
-            <span className="inline-block text-accent bg-black/40 px-3 md:px-5 py-0.5 md:py-1 rounded-sm">
+            <span className="inline-block text-accent bg-black/40 px-3 md:px-4 py-1 md:py-1.5 rounded-sm">
               {title2}
             </span>
-          </motion.h1>
+          </motion.p>
 
           <motion.div
             className="flex flex-col sm:flex-row gap-5 justify-center"
