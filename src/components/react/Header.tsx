@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Calendar } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -133,6 +133,20 @@ const Header = ({ currentPath }: HeaderProps) => {
             >
               <a href="/portal">Client Portal</a>
             </Button>
+            <Button
+              asChild
+              size="sm"
+              className={`ml-2 ${
+                isTransparent
+                  ? "bg-accent text-accent-foreground hover:bg-accent/90"
+                  : "bg-primary text-primary-foreground hover:bg-primary/90"
+              }`}
+            >
+              <a href="https://calendar.app.google/xuwAdBrmyG5rk46x6" target="_blank" rel="noopener noreferrer">
+                <Calendar className="w-4 h-4 mr-1" />
+                Schedule a Meeting
+              </a>
+            </Button>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -170,7 +184,7 @@ const Header = ({ currentPath }: HeaderProps) => {
                 {link.label}
               </a>
             ))}
-            <div className="px-4 pt-2">
+            <div className="px-4 pt-2 space-y-2">
               <Button
                 asChild
                 className={`w-full ${
@@ -181,6 +195,19 @@ const Header = ({ currentPath }: HeaderProps) => {
               >
                 <a href="/portal" onClick={() => setMobileMenuOpen(false)}>
                   Client Portal
+                </a>
+              </Button>
+              <Button
+                asChild
+                className={`w-full ${
+                  isTransparent
+                    ? "bg-accent text-accent-foreground hover:bg-accent/90"
+                    : "bg-primary text-primary-foreground hover:bg-primary/90"
+                }`}
+              >
+                <a href="https://calendar.app.google/xuwAdBrmyG5rk46x6" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)}>
+                  <Calendar className="w-4 h-4 mr-1" />
+                  Schedule a Meeting
                 </a>
               </Button>
             </div>
