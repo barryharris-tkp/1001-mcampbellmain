@@ -20,6 +20,16 @@ const PortalAccessForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!WEB3FORMS_KEY) {
+      toast({
+        title: "Configuration Error",
+        description: "The form is not properly configured. Please contact us by phone or email.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
