@@ -201,7 +201,7 @@ const Hero = () => {
               >
                 <a href="/contact">
                   <span className="relative z-10 flex items-center">
-                    Schedule Consultation
+                    Get in Touch
                     <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </span>
                   {/* Shimmer effect */}
