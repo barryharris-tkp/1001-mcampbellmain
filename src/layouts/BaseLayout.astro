@@ -2,12 +2,145 @@
 interface Props {
   title: string;
   description?: string;
+  noindex?: boolean;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
   title,
-  description = "Professional CPA services serving all 50 states. Over 40 years of expertise in tax preparation, accounting, and business consulting for individuals and businesses."
+  description = "Professional CPA services serving all 50 states. Over 45 years of expertise in tax preparation, accounting, and business consulting for individuals and businesses.",
+  noindex = false,
+  schema,
 } = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+const defaultImage = "https://campbelltaxservices.com/videos/hero-poster.jpg";
+
+const businessSchema = {
+  "@context": "https://schema.org",
+  "@type": ["AccountingService", "ProfessionalService"],
+  "@id": "https://campbelltaxservices.com/#business",
+  name: "Campbell Tax Services PC",
+  url: "https://campbelltaxservices.com/",
+  image: defaultImage,
+  email: "michael@campbelltaxservices.com",
+  telephone: "+17312677702",
+  address: {
+    "@type": "PostalAddress",
+    postOfficeBoxNumber: "PO Box 1855",
+    addressLocality: "Gallatin",
+    addressRegion: "TN",
+    postalCode: "37066",
+    addressCountry: "US",
+  },
+  areaServed: {
+    "@type": "Country",
+    name: "United States",
+  },
+  founder: {
+    "@type": "Person",
+    name: "Mike Campbell",
+  },
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      telephone: "+17312677702",
+      contactType: "customer service",
+      areaServed: "US",
+      availableLanguage: "English",
+    },
+    {
+      "@type": "ContactPoint",
+      telephone: "+17312677703",
+      contactType: "customer service",
+      areaServed: "US",
+      availableLanguage: "English",
+    },
+  ],
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ],
+      opens: "09:00",
+      closes: "21:00",
+    },
+  ],
+  knowsAbout: [
+    "Tax preparation",
+    "Tax planning",
+    "Accounting",
+    "Bookkeeping",
+    "Business consulting",
+    "Manufacturing cost accounting",
+  ],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "CPA, Tax, Accounting, and Consulting Services",
+    itemListElement: [
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Tax preparation and planning",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Bookkeeping and accounting",
+        },
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Business consulting",
+        },
+      },
+    ],
+  },
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://campbelltaxservices.com/#website",
+  name: "Campbell Tax Services PC",
+  url: "https://campbelltaxservices.com/",
+  publisher: {
+    "@id": "https://campbelltaxservices.com/#business",
+  },
+};
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${canonicalUrl}#webpage`,
+  url: canonicalUrl,
+  name: title,
+  description,
+  isPartOf: {
+    "@id": "https://campbelltaxservices.com/#website",
+  },
+  about: {
+    "@id": "https://campbelltaxservices.com/#business",
+  },
+};
+
+const schemas = [
+  businessSchema,
+  websiteSchema,
+  webPageSchema,
+  ...(Array.isArray(schema) ? schema : schema ? [schema] : []),
+];
 ---
 
 <!DOCTYPE html>
@@ -21,21 +154,29 @@ const {
     <link rel="icon" href="/favicon.png" type="image/png">
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href={canonicalUrl} />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="author" content="Campbell Tax Services PC" />
     <meta name="keywords" content="CPA, tax services, accounting, consulting, Tennessee CPA, tax preparation, bookkeeping, business consulting, nationwide CPA" />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://campbelltaxservices.com/videos/hero-poster.jpg" />
-    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site).href} />
+    <meta property="og:site_name" content="Campbell Tax Services PC" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={defaultImage} />
+    <meta property="og:image:alt" content="Creek and mountain landscape for Campbell Tax Services PC" />
+    <meta property="og:url" content={canonicalUrl} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content="https://campbelltaxservices.com/videos/hero-poster.jpg" />
+    <meta name="twitter:image" content={defaultImage} />
+    <meta name="twitter:image:alt" content="Creek and mountain landscape for Campbell Tax Services PC" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(schemas)} />
   </head>
   <body>
     <slot />

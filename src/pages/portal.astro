@@ -7,7 +7,10 @@ import PortalAccessForm from '../components/react/PortalAccessForm.tsx';
 const currentPath = Astro.url.pathname;
 ---
 
-<BaseLayout title="Client Portal | Campbell Tax Services PC">
+<BaseLayout
+  title="Client Portal | Campbell Tax Services PC"
+  description="Request access to the Campbell Tax Services PC client portal or log in to securely exchange financial documents and tax information."
+>
   <div class="min-h-screen flex flex-col">
     <Header currentPath={currentPath} client:load />
     <main class="flex-1">

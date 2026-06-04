@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Menu, X, Calendar } from "lucide-react";
 import { useState, useEffect } from "react";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 interface HeaderProps {
   currentPath: string;
@@ -10,7 +9,6 @@ interface HeaderProps {
 const Header = ({ currentPath }: HeaderProps) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const isMobile = useIsMobile();
 
   const isHome = currentPath === "/";
   const isActive = (path: string) => currentPath === path;
@@ -53,15 +51,18 @@ const Header = ({ currentPath }: HeaderProps) => {
       style={headerStyle}
     >
       <div className="container mx-auto px-4">
-        <div className="flex h-20 items-center justify-between">
-          <a href="/" className="flex flex-col relative z-10 py-2">
-            <div className="relative inline-block">
+        <div className="flex h-20 items-center justify-between gap-4">
+          <a
+            href="/"
+            className="relative z-10 block max-w-[calc(100vw-5.5rem)] shrink-0 py-2 xl:max-w-none"
+            aria-label="Campbell Tax Services PC home"
+          >
+            <div className="relative inline-block max-w-full">
               <span
-                className={`font-cormorant font-semibold tracking-wide transition-all duration-300 ${
+                className={`block truncate whitespace-nowrap font-cormorant text-[20px] font-semibold tracking-wide transition-colors duration-300 sm:text-[24px] xl:text-[34px] ${
                   isHome ? "text-white drop-shadow-lg" : "text-foreground"
                 }`}
                 style={{
-                  fontSize: `${(isMobile ? 22 : 34) - scrollProgress * (isMobile ? 6 : 12)}px`,
                   letterSpacing: '0.02em',
                 }}
               >
@@ -73,7 +74,7 @@ const Header = ({ currentPath }: HeaderProps) => {
                 style={{
                   bottom: `-${4 + scrollProgress * 2}px`,
                   opacity: 1 - scrollProgress * 0.3,
-                  transform: `scaleX(${(isMobile ? 0.55 : 0.7) + scrollProgress * 0.1})`,
+                  transform: `scaleX(${0.7 + scrollProgress * 0.1})`,
                 }}
               >
                 {/* Left diamond */}
@@ -104,7 +105,7 @@ const Header = ({ currentPath }: HeaderProps) => {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1">
+          <nav className="hidden xl:flex items-center space-x-1">
             {navLinks.map((link) => (
               <a
                 key={link.path}
@@ -151,7 +152,7 @@ const Header = ({ currentPath }: HeaderProps) => {
 
           {/* Mobile Menu Button */}
           <button
-            className={`md:hidden p-2 transition-colors ${
+            className={`xl:hidden p-2 transition-colors ${
               isTransparent ? "text-white" : "text-foreground"
             }`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -163,7 +164,7 @@ const Header = ({ currentPath }: HeaderProps) => {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <nav className={`md:hidden py-4 space-y-2 ${
+          <nav className={`xl:hidden py-4 space-y-2 ${
             isTransparent ? "bg-black/50 backdrop-blur-md rounded-lg px-4 -mx-4" : ""
           }`}>
             {navLinks.map((link) => (

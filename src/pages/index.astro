@@ -11,8 +11,11 @@ import mountainRiver from '../assets/mountain-river.jpg';
 const currentPath = Astro.url.pathname;
 ---
 
-<BaseLayout title="Campbell Tax Services PC | Tax & Accounting">
-  <AmbientAudio client:idle />
+<BaseLayout
+  title="Campbell Tax Services PC | CPA Tax & Accounting Services"
+  description="Campbell Tax Services PC provides tax preparation, accounting, bookkeeping, and business consulting services backed by more than 45 years of CPA experience."
+>
+  <AmbientAudio client:load />
   <div class="min-h-screen flex flex-col relative">
     <!-- Fixed nature background with parallax - handled by inline script -->
     <div class="fixed inset-0 -z-10 overflow-hidden" id="parallax-bg">

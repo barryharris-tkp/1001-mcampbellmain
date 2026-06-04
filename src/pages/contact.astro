@@ -7,7 +7,10 @@ import ContactForm from '../components/react/ContactForm.tsx';
 const currentPath = Astro.url.pathname;
 ---
 
-<BaseLayout title="Contact | Campbell Tax Services PC">
+<BaseLayout
+  title="Contact Campbell Tax Services PC | Tax & Accounting Help"
+  description="Contact Campbell Tax Services PC for tax preparation, accounting, bookkeeping, and business consulting services. Call, email, or send a secure inquiry."
+>
   <div class="min-h-screen flex flex-col">
     <Header currentPath={currentPath} client:load />
     <main class="flex-1">
